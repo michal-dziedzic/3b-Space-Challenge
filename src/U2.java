@@ -1,6 +1,6 @@
 public class U2 extends Rocket{
     public U2() {
-        this.cost= 12000000;
+        this.cost= 120000000;
         this.rocketWeight=18000;
         this.maxWeight=29000;
     }

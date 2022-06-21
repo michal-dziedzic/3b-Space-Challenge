@@ -1,6 +1,6 @@
 public class U1 extends Rocket{
     public U1() {
-        this.cost= 10000000;
+        this.cost= 100000000;
         this.rocketWeight=10000;
         this.maxWeight=18000;
     }

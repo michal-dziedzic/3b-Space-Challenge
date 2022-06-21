@@ -7,9 +7,13 @@ public class Simulation {
 
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("phase-1.txt");
+        File file2 = new File("phase-2.txt");
         Scanner phase1scanner = new Scanner(file);
-        ArrayList<Item> loadedItemsPhase1 = loadItems(phase1scanner);
-        for (Item item : loadedItemsPhase1) {
+        Scanner phase2scanner = new Scanner(file2);
+        ArrayList<Item> loadedItemsPhase1AndPhase2 = new ArrayList<>();
+        loadedItemsPhase1AndPhase2 = loadItems(phase1scanner, loadedItemsPhase1AndPhase2);
+        loadedItemsPhase1AndPhase2 = loadItems(phase2scanner, loadedItemsPhase1AndPhase2);
+        for (Item item : loadedItemsPhase1AndPhase2) {
             System.out.println(item.getName() + "=" + item.getWeight());
         }
         U1 u1 =new U1();
@@ -26,12 +30,12 @@ public class Simulation {
         u1.carry(bigitem);
         System.out.println(u1.rocketWeight);
         Simulation simulation = new Simulation();
-        simulation.runSimulation(simulation.loadU1(loadedItemsPhase1));
+//        System.out.println(simulation.runSimulation(simulation.loadU1(loadedItemsPhase1)));
+        System.out.println(simulation.runSimulation(simulation.loadU2(loadedItemsPhase1AndPhase2)));
 
     }
 
-    private static ArrayList<Item> loadItems (Scanner phaseScanner){
-        ArrayList<Item> loadedItems = new ArrayList<>();
+    private static ArrayList<Item> loadItems (Scanner phaseScanner, ArrayList<Item> loadedItems){
         String nameAndWeight;
         String [] splitNameAndWeightFromFile;
         while (phaseScanner.hasNextLine()){
@@ -79,17 +83,9 @@ public class Simulation {
         int totalBudget = 0;
         while (!isRocketListEmpty(rocketArrayList)){
             totalBudget=totalBudget+rocketArrayList.get(0).cost;
-            if (rocketArrayList.get(0).launch()){
-                System.out.println("Launch succes");
-            } else {
-                System.out.println("launch failed");
+            if (rocketArrayList.get(0).launch() && rocketArrayList.get(0).land()) {
+                rocketArrayList.remove(0);
             }
-            if (rocketArrayList.get(0).land()) {
-                System.out.println("land succes");
-            } else {
-                System.out.println("land failed");
-            }
-            rocketArrayList.remove(0);
         }
         return totalBudget;
     }
