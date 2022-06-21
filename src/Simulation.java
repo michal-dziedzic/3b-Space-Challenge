@@ -25,6 +25,9 @@ public class Simulation {
         System.out.println(u1.rocketWeight);
         u1.carry(bigitem);
         System.out.println(u1.rocketWeight);
+        Simulation simulation = new Simulation();
+        simulation.runSimulation(simulation.loadU1(loadedItemsPhase1));
+
     }
 
     private static ArrayList<Item> loadItems (Scanner phaseScanner){
@@ -42,9 +45,56 @@ public class Simulation {
         return loadedItems;
     }
 
-    public ArrayList<Rocket> loadU1 (ArrayList<Item> loadItems) {
-        ArrayList<Rocket> rocketCargo = new ArrayList<>();
-        return rocketCargo;
+    private ArrayList<Rocket> loadU1 (ArrayList<Item> loadItems) {
+        ArrayList<Rocket> rocketArrayList = new ArrayList<>();
+        while (!isItemListEmpty(loadItems)) {
+            U1 rocketU1 =new U1();
+            while (!isItemListEmpty(loadItems) && rocketU1.canCarry(loadItems.get(0))){
+                rocketU1.carry(loadItems.get(0));
+                loadItems.remove(0);
+            }
+            rocketArrayList.add(rocketU1);
+        }
+        return rocketArrayList;
     }
 
+    private ArrayList<Rocket> loadU2 (ArrayList<Item> loadItems) {
+        ArrayList<Rocket> rocketArrayList = new ArrayList<>();
+        while (!isItemListEmpty(loadItems)) {
+            U2 rocketU2 =new U2();
+            while (!isItemListEmpty(loadItems) && rocketU2.canCarry(loadItems.get(0))){
+                rocketU2.carry(loadItems.get(0));
+                loadItems.remove(0);
+            }
+            rocketArrayList.add(rocketU2);
+        }
+        return rocketArrayList;
+    }
+
+    private static boolean isItemListEmpty (ArrayList<Item> loadItems) {
+        return loadItems.size() == 0;
+    }
+
+    private int runSimulation (ArrayList<Rocket> rocketArrayList) {
+        int totalBudget = 0;
+        while (!isRocketListEmpty(rocketArrayList)){
+            totalBudget=totalBudget+rocketArrayList.get(0).cost;
+            if (rocketArrayList.get(0).launch()){
+                System.out.println("Launch succes");
+            } else {
+                System.out.println("launch failed");
+            }
+            if (rocketArrayList.get(0).land()) {
+                System.out.println("land succes");
+            } else {
+                System.out.println("land failed");
+            }
+            rocketArrayList.remove(0);
+        }
+        return totalBudget;
+    }
+
+    private static boolean isRocketListEmpty (ArrayList<Rocket> rocketArrayList) {
+        return rocketArrayList.size() == 0;
+    }
 }

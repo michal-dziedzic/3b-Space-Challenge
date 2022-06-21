@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 public class Rocket implements SpaceShip{
     int cost;
     int rocketWeight;
     int maxWeight;
+
+    ArrayList<Item> rocketCargo;
 
     @Override
     public boolean launch() {
@@ -20,6 +24,6 @@ public class Rocket implements SpaceShip{
     }
     @Override
     public int carry(Item item) {
-        return this.rocketWeight+item.getWeight();
+        return this.rocketWeight=this.rocketWeight+item.getWeight();
     }
 }
