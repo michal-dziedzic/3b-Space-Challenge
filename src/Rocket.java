@@ -5,8 +5,6 @@ public class Rocket implements SpaceShip{
     int rocketWeight;
     int maxWeight;
 
-    ArrayList<Item> rocketCargo;
-
     @Override
     public boolean launch() {
         return true;
