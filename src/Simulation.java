@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,10 +20,13 @@ public class Simulation {
     public ArrayList<Rocket> loadU1 (ArrayList<Item> loadItems) {
         ArrayList<Rocket> rocketArrayList = new ArrayList<>();
         while (!isItemListEmpty(loadItems)) {
-            U1 rocketU1 =new U1();
-            while (!isItemListEmpty(loadItems) && rocketU1.canCarry(loadItems.get(0))){
-                rocketU1.carry(loadItems.get(0));
-                loadItems.remove(0);
+            U1 rocketU1 = new U1();
+            for (int i = 0; i < loadItems.size(); i++) {
+                if (rocketU1.canCarry(loadItems.get(i))) {
+                    rocketU1.carry(loadItems.get(i));
+                    loadItems.remove(i);
+                    i--;
+                }
             }
             rocketArrayList.add(rocketU1);
         }
@@ -36,9 +37,12 @@ public class Simulation {
         ArrayList<Rocket> rocketArrayList = new ArrayList<>();
         while (!isItemListEmpty(loadItems)) {
             U2 rocketU2 =new U2();
-            while (!isItemListEmpty(loadItems) && rocketU2.canCarry(loadItems.get(0))){
-                rocketU2.carry(loadItems.get(0));
-                loadItems.remove(0);
+            for (int i = 0; i < loadItems.size(); i++) {
+                if (rocketU2.canCarry(loadItems.get(i))) {
+                    rocketU2.carry(loadItems.get(i));
+                    loadItems.remove(i);
+                    i--;
+                }
             }
             rocketArrayList.add(rocketU2);
         }

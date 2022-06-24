@@ -17,6 +17,7 @@ public class U2 extends Rocket{
     public boolean isRandomBiggerThenCalculation (double calculation) {
         double random = Math.random();
         if(random<=calculation){
+            System.out.println("rocket fail");
             return false;
         } else {
             return true;

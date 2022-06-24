@@ -14,7 +14,9 @@ public class Main {
         loadedItemsPhase1AndPhase2 = simulation.loadItems(phase1scanner, loadedItemsPhase1AndPhase2);
         loadedItemsPhase1AndPhase2 = simulation.loadItems(phase2scanner, loadedItemsPhase1AndPhase2);
         ArrayList<Item> loadedItemsPhase1AndPhase2Copy = new ArrayList<>(loadedItemsPhase1AndPhase2);
+        System.out.println("Simulation U1:");
         System.out.println("U1 rocket fleet budget required " + simulation.runSimulation(simulation.loadU1(loadedItemsPhase1AndPhase2)));
+        System.out.println("Simulation U2:");
         System.out.println("U2 rocket fleet budget required " + simulation.runSimulation(simulation.loadU2(loadedItemsPhase1AndPhase2Copy)));
     }
 }
