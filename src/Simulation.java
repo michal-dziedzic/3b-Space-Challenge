@@ -21,14 +21,7 @@ public class Simulation {
         ArrayList<Rocket> rocketArrayList = new ArrayList<>();
         while (!isItemListEmpty(loadItems)) {
             U1 rocketU1 = new U1();
-            for (int i = 0; i < loadItems.size(); i++) {
-                if (rocketU1.canCarry(loadItems.get(i))) {
-                    rocketU1.carry(loadItems.get(i));
-                    loadItems.remove(i);
-                    i--;
-                }
-            }
-            rocketArrayList.add(rocketU1);
+            rocketArrayList.add(loadRocket(loadItems, rocketU1));
         }
         return rocketArrayList;
     }
@@ -37,19 +30,23 @@ public class Simulation {
         ArrayList<Rocket> rocketArrayList = new ArrayList<>();
         while (!isItemListEmpty(loadItems)) {
             U2 rocketU2 =new U2();
-            for (int i = 0; i < loadItems.size(); i++) {
-                if (rocketU2.canCarry(loadItems.get(i))) {
-                    rocketU2.carry(loadItems.get(i));
-                    loadItems.remove(i);
-                    i--;
-                }
-            }
-            rocketArrayList.add(rocketU2);
+            rocketArrayList.add(loadRocket(loadItems, rocketU2));
         }
         return rocketArrayList;
     }
 
-    public static boolean isItemListEmpty (ArrayList<Item> loadItems) {
+    private static Rocket loadRocket (ArrayList<Item> loadItems, Rocket rocket){
+        for (int i = 0; i < loadItems.size(); i++) {
+            if (rocket.canCarry(loadItems.get(i))) {
+                rocket.carry(loadItems.get(i));
+                loadItems.remove(i);
+                i--;
+            }
+        }
+        return rocket;
+    }
+
+    private static boolean isItemListEmpty (ArrayList<Item> loadItems) {
         return loadItems.size() == 0;
     }
 
@@ -64,7 +61,9 @@ public class Simulation {
         return totalBudget;
     }
 
-    public static boolean isRocketListEmpty (ArrayList<Rocket> rocketArrayList) {
+    private static boolean isRocketListEmpty (ArrayList<Rocket> rocketArrayList) {
         return rocketArrayList.size() == 0;
     }
+
+
 }
